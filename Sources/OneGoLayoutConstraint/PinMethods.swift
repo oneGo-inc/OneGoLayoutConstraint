@@ -10,6 +10,7 @@ import UIKit
 public extension UIView {
 
     // MARK: - Instance Methods
+    
     func pinToSuperView(sides: [Side] = Side.allSides) {
         guard let view = self.superview else { return }
         self.pin(sides: sides, toSameSidesOn: view)

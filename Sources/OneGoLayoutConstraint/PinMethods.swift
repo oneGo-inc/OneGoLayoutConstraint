@@ -83,7 +83,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func setDemission(_ demission: Demission) -> NSLayoutConstraint {
+    func setDemission(_ demission: Demission, isActive: Bool) -> NSLayoutConstraint {
         let constraint: NSLayoutConstraint
         switch demission {
         case .height(let constant):
@@ -91,7 +91,7 @@ public extension UIView {
         case .width(let constant):
             constraint = self.widthAnchor.constraint(equalToConstant: constant)
         }
-        constraint.isActive = true
+        constraint.isActive = isActive
         return constraint
     }
 
@@ -100,12 +100,16 @@ public extension UIView {
         self.widthAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
 
-    func equal(_ demission: Demission, to view: UIView) {
+    @discardableResult
+    func equal(_ demission: Demission, to view: UIView, isActive: Bool) -> NSLayoutConstraint{
+        let constraint: NSLayoutConstraint
         switch demission {
         case .height(let constant):
-            self.heightAnchor.constraint(equalTo: view.heightAnchor, constant: constant).isActive = true
+            constraint = self.heightAnchor.constraint(equalTo: view.heightAnchor, constant: constant)
         case .width(let constant):
-            self.widthAnchor.constraint(equalTo: view.widthAnchor, constant: constant).isActive = true
+            constraint = self.widthAnchor.constraint(equalTo: view.widthAnchor, constant: constant)
         }
+        constraint.isActive = isActive
+        return constraint
     }
 }

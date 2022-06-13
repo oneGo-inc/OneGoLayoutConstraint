@@ -83,7 +83,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func setDemission(_ demission: Demission, isActive: Bool) -> NSLayoutConstraint {
+    func setDemission(_ demission: Demission, isActive: Bool = true) -> NSLayoutConstraint {
         let constraint: NSLayoutConstraint
         switch demission {
         case .height(let constant):
@@ -101,7 +101,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func equal(_ demission: Demission, to view: UIView, isActive: Bool) -> NSLayoutConstraint{
+    func equal(_ demission: Demission, to view: UIView, isActive: Bool = true) -> NSLayoutConstraint{
         let constraint: NSLayoutConstraint
         switch demission {
         case .height(let constant):

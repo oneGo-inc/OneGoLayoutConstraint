@@ -13,15 +13,15 @@ public extension UIView {
     
     func pinToSuperView(sides: [Side] = Side.allSides) {
         guard let view = self.superview else { return }
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.pin(sides: sides, toSameSidesOn: view)
     }
 
-    func pin(side: Side, toSameSidesOn view: UIView) {
-        self.pin(sides: [side], toSameSidesOn: view)
+    func pin(side: Side, toSameSidesOn view: UIView, isActive: Bool = true) {
+        self.pin(sides: [side], toSameSidesOn: view, isActive: isActive)
     }
 
-    func pin(sides: [Side] = Side.allSides, toSameSidesOn view: UIView) {
-        self.translatesAutoresizingMaskIntoConstraints = false
+    func pin(sides: [Side] = Side.allSides, toSameSidesOn view: UIView, isActive: Bool = true) {
         for side in sides {
             let layout: NSLayoutConstraint
             switch side {
@@ -44,11 +44,12 @@ public extension UIView {
                 layout = self.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: cGFloat)
                 layout.priority = uILayoutPriority
             }
-            layout.isActive = true
+            layout.isActive = isActive
         }
     }
 
-    func pin(side: Side,to viewSide: ViewSide) {
+    @discardableResult
+    func pin(side: Side,to viewSide: ViewSide, isActive: Bool) -> NSLayoutConstraint? {
         let layout: NSLayoutConstraint?
         switch (side, viewSide) {
         case (.top(let constant, let uILayoutPriority), .top(let view)):
@@ -77,9 +78,10 @@ public extension UIView {
             layout?.priority = uILayoutPriority
         default:
             print("ERROR IN SET CONSTRAINT")
-            return
+            return nil
         }
-        layout?.isActive = true
+        layout?.isActive = isActive
+        return layout
     }
 
     @discardableResult

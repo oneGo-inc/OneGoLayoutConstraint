@@ -49,7 +49,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func pin(side: Side,to viewSide: ViewSide, isActive: Bool) -> NSLayoutConstraint? {
+    func pin(side: Side,to viewSide: ViewSide, isActive: Bool = true) -> NSLayoutConstraint? {
         let layout: NSLayoutConstraint?
         switch (side, viewSide) {
         case (.top(let constant, let uILayoutPriority), .top(let view)):
@@ -97,9 +97,9 @@ public extension UIView {
         return constraint
     }
 
-    func setEqualSize(constant: CGFloat) {
-        self.heightAnchor.constraint(equalToConstant: constant).isActive = true
-        self.widthAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+    func setEqualSize(constant: CGFloat, isActive: Bool = true) {
+        self.heightAnchor.constraint(equalToConstant: constant).isActive = isActive
+        self.widthAnchor.constraint(equalTo: self.heightAnchor).isActive = isActive
     }
 
     @discardableResult
